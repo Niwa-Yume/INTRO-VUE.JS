@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>TP: To Do List</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Liste de tâche</h1>
+
+      <input type="text" v-model="newTask" @keyup.enter="addTask">
+      <button @click="addTask">Ajouter</button>
+      <p v-show="tasks.length === 0">Aucune tâches pour l'instant</p>
+
+    <!-- affichage de toutes les tâches -->
+    <div>
+      <ul>
+        <!-- Parcours le tableau et affiche un Li pour chaque itération du tableau-->
+        <li v-for="(task, index) in tasks" :key="index">{{ task }}</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  //import la méthode create app de VUE.JS
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        newTask: '',
+        tasks: [] //tableau qui stock tout les tâches
+      }
+    },
+    methods: {
+      addTask() {
+        if (this.newTask.trim()) { //return false si il y a du contenut " " au début ou à la fin
+          //permet de vérifirer qu'elle soit pas vide
+          this.tasks.push(this.newTask)//ajoute au tableau
+          this.newTask = '' //remets le champ à 0
+        }
+      }
+    }
+  }).mount("#app")
+</script>
